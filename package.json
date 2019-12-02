@@ -1,0 +1,24 @@
+{
+  "name": "spartanmixer",
+  "version": "1.0.0",
+  "description": "help with mixer api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MythoAway7/SpartanMixer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MythoAway7/SpartanMixer/issues"
+  },
+  "homepage": "https://github.com/MythoAway7/SpartanMixer#readme",
+  "dependencies": {
+    "@mixer/client-node": "^3.5.0",
+    "carina": "^0.11.2",
+    "ws": "^7.2.0"
+  }
+}
