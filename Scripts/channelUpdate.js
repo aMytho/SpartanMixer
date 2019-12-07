@@ -54,15 +54,6 @@
             }
         });
 
-
-        // React to our !pong comamand
-        socket.on('ChatMessage', data => {
-            if (data.message.message[0].data.toLowerCase().startsWith('!gt')) {
-                socket.call('msg', [`@${data.user_name} My gamertag is DazeMoist`]);
-                console.log(` ${data.user_name} asked for your gamertag`);
-            }
-        });
-
         // Handle errors
         socket.on('error', error => {
             console.error('Socket error');
