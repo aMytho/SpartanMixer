@@ -9,7 +9,7 @@
     // the required information to all of our requests after this call.
     client.use(new Mixer.OAuthProvider(client, {
         tokens: {
-            access: 'enOuTrYMPyKzQFbrA2ioQxjAnCjYTXKcrheiibns7v0mCR0DPDpedwCcEz2owOmi',
+            access: 'auth key here',
             expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
         },
     }));

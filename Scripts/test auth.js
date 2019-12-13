@@ -1,4 +1,6 @@
-    const Mixer = require('@mixer/client-node');
+ // this is a test script to send the bot to other channels using my own authkey
+ // use the commands.js for commanding the bot.
+ const Mixer = require('@mixer/client-node');
     const ws = require('ws');
 
     let userInfo;
@@ -9,7 +11,7 @@
     // the required information to all of our requests after this call.
     client.use(new Mixer.OAuthProvider(client, {
         tokens: {
-            access: 'enOuTrYMPyKzQFbrA2ioQxjAnCjYTXKcrheiibns7v0mCR0DPDpedwCcEz2owOmi',
+            access: 'authkey here keep the quotes or whatever ',
             expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
         },
     }));
@@ -17,11 +19,17 @@
     // Gets the user that the Access Token we provided above belongs to.
     client.request('GET', 'users/current')
     .then(response => {
+        console.log(response.body);
+
+        // Store the logged in user's details for later reference
         userInfo = response.body;
+
+        // Returns a promise that resolves with our chat connection details.
         return new Mixer.ChatService(client).join(response.body.channel.id);
     })
     .then(response => {
         const body = response.body;
+        console.log(body);
         return createChatSocket(userInfo.id, userInfo.channel.id, body.endpoints, body.authkey);
     })
     .catch(error => {
@@ -37,41 +45,33 @@
     * @param {string} authkey An authentication key to connect with
     * @returns {Promise.<>}
     */
+   channelId = 53101272
     function createChatSocket (userId, channelId, endpoints, authkey) {
-        // Chat connection
         const socket = new Mixer.Socket(ws, endpoints).boot();
 
-        // Greet a joined user
-        socket.on('UserJoin', data => {
-            socket.call('msg', [`Hi ${data.username}! I'm pingbot! Write !ping and I will pong back!`]);
-        });
-
-        // React to our !pong comamand
-        socket.on('ChatMessage', data => {
-            if (data.message.message[0].data.toLowerCase().startsWith('!ping')) {
-                socket.call('msg', [`@${data.user_name} PONG!`]);
-                console.log(`Ponged ${data.user_name}`);
-            }
-        });
-
-
-        // React to our !pong comamand
-        socket.on('ChatMessage', data => {
-            if (data.message.message[0].data.toLowerCase().startsWith('!gt')) {
-                socket.call('msg', [`@${data.user_name} My gamertag is DazeMoist`]);
-                console.log(` ${data.user_name} asked for your gamertag`);
-            }
-        });
-
-        // Handle errors
-        socket.on('error', error => {
-            console.error('Socket error');
+        // You don't need to wait for the socket to connect before calling
+        // methods. We spool them and run them when connected automatically.
+        socket.auth(channelId, userId, authkey)
+        .then(() => {
+            console.log('You are now authenticated!');
+            // Send a chat message
+            return socket.call('msg', ['Hello world!']);
+        })
+        .catch(error => {
+            console.error('Oh no! An error occurred.');
             console.error(error);
         });
 
-        return socket.auth(channelId, userId, authkey)
-        .then(() => {
-            console.log('Login successful');
-            return socket.call('msg', ['Hi! I\'m pingbot! Write !ping and I will pong back!']);
+        // Listen for chat messages. Note you will also receive your own!
+        socket.on('ChatMessage', data => {
+            console.log('We got a ChatMessage packet!');
+            console.log(data);
+            console.log(data.message); // Let's take a closer look
+        });
+
+        // Listen for socket errors. You will need to handle these here.
+        socket.on('error', error => {
+            console.error('Socket error');
+            console.error(error);
         });
     }

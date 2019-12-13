@@ -7,7 +7,7 @@ const client = new Mixer.Client(new Mixer.DefaultRequestRunner());
 const channelName = process.argv[2];
 
 client.use(new Mixer.OAuthProvider(client, {
-    clientId: 'd43323de123cbfacfff584781ab0fe0f9a74e3dcf0790c63',
+    clientId: '',
 }));
 
 client.request('GET', `channels/${channelName}`)
