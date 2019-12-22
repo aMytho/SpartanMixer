@@ -1,3 +1,5 @@
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/MythoAway7/SpartanMixer) 
+
 # SpartanMixer
 A collection of scripts for the Spartans of Mixer. (and for anyone else who wants it )
 
@@ -11,7 +13,7 @@ The purpose of this github project is to give streamers more control over their 
 
 The chatbot will have all of the normal functions of a chabot (commands,moderation,ect) when fully completed.
 
-Currently the main file used is commands.js  Feel free to experiment with other files if you wish.
+Currently the main file used is commands.js  Feel free to experiment with other files if you wish. HowTo.js shows examples.
 
 Usage-
 

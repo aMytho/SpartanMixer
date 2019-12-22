@@ -1,6 +1,6 @@
    // Some of these commands are coded for a specific user so you need to chnage it to your own channel.
    // When I release it officially I will change the user. 
-   const Mixer = require('@mixer/client-node');
+    const Mixer = require('@mixer/client-node');
     const ws = require('ws');
 
     let userInfo;
@@ -11,7 +11,7 @@
     // the required information to all of our requests after this call.
     client.use(new Mixer.OAuthProvider(client, {
         tokens: {
-            access: 'auth key here',
+            access: 'Your authkey here',
             expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
         },
     }));
@@ -59,6 +59,16 @@
             }
         });
 
+        // Start earning points
+        socket.on('ChatMessage', data => {
+            if (data.message.message[0].data.toLowerCase().startsWith('!pointS')) {
+                socket.call('msg', [`@${data.user_name} You have started earning points.`]);
+                console.log(`${data.user_name} has started earning points.`);
+
+
+
+            }
+        });
 
         // React to our gamertag command
         socket.on('ChatMessage', data => {
@@ -122,6 +132,7 @@
                 console.log(` ${data.user_name} retrieved your spark amount`);
             }
         });
+
 
 
         // Handle errors
