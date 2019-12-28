@@ -6,6 +6,7 @@ let user = {     // an object
 
 const fs = require('fs')
 
+
 let content = user.age
 
 try {

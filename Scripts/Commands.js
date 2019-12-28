@@ -11,7 +11,7 @@
     // the required information to all of our requests after this call.
     client.use(new Mixer.OAuthProvider(client, {
         tokens: {
-            access: 'Your authkey here',
+            access: 'Auth key here',
             expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
         },
     }));
@@ -81,7 +81,7 @@
 
         // Testing a command
         socket.on('ChatMessage', data => {
-            if (data.message.message[0].data.toLowerCase().startsWith('!testing')) {
+            if (data.message.message[0].data.toLowerCase().endsWith('!testing')) {
                 socket.call('msg', [`@${data.user_name} testing`]);
                 console.log(` ${data.user_name} tested a command`);
             }
@@ -102,20 +102,24 @@
         });
 
 
+    
          // Gets the sparks of a viewer
         socket.on('ChatMessage', data => {
             if (data.message.message[0].data.toLowerCase().startsWith('!sparks')) {
-                client.request('GET', `channels/Mytho`)
+                name = (data.message.message[0].data);
+                let nameD = name.slice(8);
+                client.request('GET',`channels/${nameD}`)
                 .then(res => {
                         const sparks = res.body.user.sparks;
-
-                socket.call('msg', [`@${data.user_name} Mytho has ${sparks} sparks!`]);
+                socket.call('msg', [`@${data.user_name} ${nameD} has ${sparks} sparks!`]);
                 });
-                console.log(` ${data.user_name} retrieved your spark amount`);
+                console.log(` ${data.user_name} retrieved ${nameD}'s spark amount`);
             }
         });
 
 
+
+        
          /// Gets the stats of mytho
         socket.on('ChatMessage', data => {
             if (data.message.message[0].data.toLowerCase().startsWith('!stats')) {
