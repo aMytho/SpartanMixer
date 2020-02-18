@@ -33,6 +33,19 @@ let aUser = 'Name'
 client.request('GET',`channels/${aUser}`)
 
 
+// Send a whisper instead of a chat message. Useful for very long commands or to prevent the chat from getting cluttered.
+
+socket.on('ChatMessage', data => {
+            if (data.message.message[0].data.toLowerCase().startsWith('!gamertag')) { // This stays the same.
+                socket.call('whisper', [data.user_name, 'whispered message here']); // Changed msg to whisper. The data.user_name gets the user who activated the command. The message comes after.
+                console.log(`Ponged ${data.user_name}`); // Optional, tells the console that someone activated your command.
+            }
+        });
+
+
+
+
+
 
 
 
@@ -135,4 +148,7 @@ client.request('GET',`channels/${aUser}`)
 
 
 
-// More added later
+// This sends the bot to another chat. By default the bot will always go to your own chat. However, you may wish to have another account to to talk as the bot.
+// You may also want to send the bot to a friend's chat. Simply replace the following code with your own channel id. Replace the number, not the words.
+
+
