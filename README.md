@@ -24,10 +24,16 @@ Navigate to the scripts folder.
 Open Commands.js
 
 Go to https://dev.mixer.com/guides/chat/chatbot
+<<<<<<< HEAD
 Select node and look at the first block of code. Click on 'click here to get an authkey' inside the block of code. 
 
 In your commands.js file paste the authkey where it says "auth key here". 
 Scroll down to view the premade commands. 
+=======
+Select node and look at the first block of code. Click on 'click here to get an authkey' inside the block of code. Copy the code it gives you. 
+
+In your commands.js file paste the authkey where it says "auth key here". You may need to get a new key if it expires.
+>>>>>>> 2356b97d5f0597bb2c55b54c957af82177253c15
 
 Using the same format as the other commands you can copy and paste more commands into the createchatsocket function.
 To send the bot to your chat run 'node commands.js' in a terminal in the proper directory. This depends on where the file is downloaded. (To move directories just type 'cd path/to/scripts') ect users/desktop/repo/scripts
