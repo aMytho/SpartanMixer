@@ -1,5 +1,4 @@
-   // Some of these commands are coded for a specific user so you need to chnage it to your own channel.
-   // When I release it officially I will change the user. 
+// this is a work in progress. Currently no work has been done lol. :)
     const Mixer = require('@mixer/client-node');
     const ws = require('ws');
 
@@ -11,7 +10,7 @@
     // the required information to all of our requests after this call.
     client.use(new Mixer.OAuthProvider(client, {
         tokens: {
-            access: 'auth key here or client id whatever you want to call it',
+            access: 'auth key here ',
             expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
         },
     }));

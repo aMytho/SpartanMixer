@@ -1,66 +1,6 @@
-   // Some of these commands are coded for a specific user so you need to chnage it to your own channel.
-   // When I release it officially I will change the user. 
-   const Mixer = require('@mixer/client-node');
-   const ws = require('ws');
-   const Carina = require('carina').Carina;
-   var request = require('request');
-
-   let userInfo;
-   const client = new Mixer.Client(new Mixer.DefaultRequestRunner());
-
-   // With OAuth we don't need to log in. The OAuth Provider will attach
-   // the required information to all of our requests after this call.
-   client.use(new Mixer.OAuthProvider(client, {
-       tokens: {
-           access: 'auth key here',
-           expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
-       },
-   }));
-// 7drUfpKwvQyaxe9H   the non admin mytho? idk anymore
-// d43323de123cbfacfff584781ab0fe0f9a74e3dcf0790c63                       another mytho
-// enOuTrYMPyKzQFbrA2ioQxjAnCjYTXKcrheiibns7v0mCR0DPDpedwCcEz2owOmi  stellar I think
-// 5bf14816cb34dad85fb62c3d47e6996995fca2da40110e39b08e9fbbec6bf7e4   Mytho?
-// KHsQQS2tc9lKMtJI9CPyN476BwOKHcTULDbqnDxRJ4TeXeiGsmNYBwDLu9O0Cs7r    use this one because its recent and actually works omegalul
-    // Gets the user that the Access Token we provided above belongs to.
-
-   
-    
-
-
-
-
-   /**
-   * Creates a Mixer chat socket and sets up listeners to various chat events.
-   * @param {number} userId The user to authenticate as
-   * @param {number} channelId The channel id to join
-   * @param {string[]} endpoints An array of endpoints to connect to
-   * @param {string} authkey An authentication key to connect with
-   * @returns {Promise.<>}
-   */
-
-
-// Gets the user that the Access Token we provided above belongs to.
-client.request('GET', 'users/current')
-.then(response => {
-   userInfo = response.body;
-   return new Mixer.ChatService(client).join(response.body.channel.id);
-})
-.then(response => {
-   const body = response.body;
-   return createChatSocket1(userInfo.id, userInfo.channel.id, body.endpoints, body.authkey);
-})
-.catch(error => {
-   console.error('Something went wrong.');
-   console.error(error);
-});
-
-// this is the pokedex APi.
-   function createChatSocket1 (userId, channelId, endpoints, authkey) {
-       // Chat connection
-       const socket = new Mixer.Socket(ws, endpoints).boot();
-
-       
-
+   var request = require('request'); // use this at the top of the js file. run "npm install request" if you get any request errors.
+ 
+// Use the rest of the code inside the chatsocket function. No whispers
        
        // Pokedex API
        socket.on('ChatMessage', data => {
@@ -129,28 +69,3 @@ client.request('GET', 'users/current')
            }
            
        });
-
-// React to our !pong comamand
-socket.on('ChatMessage', data => {
-   if (data.message.message[0].data.toLowerCase().startsWith('!ping')) {
-       socket.call('msg', [`@${data.user_name} PONG!`]);
-       console.log(`Ponged ${data.user_name}`);
-   }
-});
-
-
-       // Handle errors
-       socket.on('error', error => {
-           console.error('Socket error');
-           console.error(error);
-       });
-
-       return socket.auth(channelId, userId, authkey)
-       .then(() => {
-           console.log('Login successful for mixer chat connection. Bot should now be in your chat. ');
-           return socket.call('msg', ['Hi! I\'m a robot. I get data for you. I have no current plans for world domination. yet.']);
-       });
-   };
-
-
-   

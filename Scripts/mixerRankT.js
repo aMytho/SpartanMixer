@@ -2,7 +2,6 @@
 // Currently it compares a streamers total viewcount to the rest of mixer. 
 // Obviously, you can change this. For example, If I wanted to see my current viewers compared I would replace all the "viewersTotal" with "viewersCurrent"
 // Caps DO matter. You can search for more values in the mixer rest index.
-// To 
 // Questions? Mixer.com/Mytho
 // Another resource is the mixer community discord. Sadly I don't have a link but I'm sure you can find it.
 'use strict';
