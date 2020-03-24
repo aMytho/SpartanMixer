@@ -49,18 +49,20 @@ client.request('GET', 'users/current')
 
         // Instructions
         socket.on('ChatMessage', data => {
+              if (typeof data.message.message[0].data !== 'undefined') {
              if (data.message.message[0].data.startsWith('!AL info')) {
               socket.call('whisper', [data.user_name, `All commands have this format. !AL platform person stat value
               Platforms: xbl,psn,PC
               Person: gamertag,originId,psntag,etc
               Stats: kills,headshots,damage,level,grapple distance`]);
               socket.call('whisper', [data.user_name, `You must use the same capitalization as shown above. We can ONLY get what is shown on your banner so this has obvious limits. If one of your unlocked legends does not have a stat it may affect the rest of your data. Ask Mixer.com/Mytho or a channel mod if you have any questions!`]);
-    }
+    }}
 }); 
 
 
       // Apex general stats for all legends. Gets kills
       socket.on('ChatMessage', data => {
+            if (typeof data.message.message[0].data !== 'undefined') {
         if (data.message.message[0].data.startsWith('!AL') && data.message.message[0].data.endsWith('kills')){
             apexdata = (data.message.message[0].data);
             let alName = apexdata.split(' ');
@@ -120,12 +122,13 @@ client.request('GET', 'users/current')
      }
     });
 
-        }
+        }}
         
     });
 
           // Apex general stats for all legends. Gets level of account.
           socket.on('ChatMessage', data => {
+                if (typeof data.message.message[0].data !== 'undefined') {
             if (data.message.message[0].data.startsWith('!AL') && data.message.message[0].data.endsWith('level')){
                 apexdata = (data.message.message[0].data);
                 let alName = apexdata.split(' ');
@@ -160,12 +163,13 @@ client.request('GET', 'users/current')
             console.log('The player they searched for does not exist.')
          }
         });
-            } 
+            }}
         });
 
        
 // Apex general stats for all legends. Gets Damage
 socket.on('ChatMessage', data => {
+      if (typeof data.message.message[0].data !== 'undefined') {
   if (data.message.message[0].data.startsWith('!AL') && data.message.message[0].data.endsWith('damage')){
       apexdata = (data.message.message[0].data);
       let alName = apexdata.split(' ');
@@ -217,7 +221,7 @@ console.log('The player they searched for was missing a stat value');
   console.log('The player they searched for does not exist.')
 }
 });
-  }
+  }}
 });
 
 
@@ -225,6 +229,7 @@ console.log('The player they searched for was missing a stat value');
 
 // Apex general stats for all legends. Gets Headshots
 socket.on('ChatMessage', data => {
+      if (typeof data.message.message[0].data !== 'undefined') {
   if (data.message.message[0].data.startsWith('!AL') && data.message.message[0].data.endsWith('headshots')){
       apexdata = (data.message.message[0].data);
       let alName = apexdata.split(' ');
@@ -276,13 +281,14 @@ console.log('The player they searched for was missing a stat value');
   console.log('The player they searched for does not exist.')
 }
 });
-  }
+  }}
 });
 
 
 
 // Apex general stats for all legends. Gets grapple distance. The code here is slightly different.
 socket.on('ChatMessage', data => {
+      if (typeof data.message.message[0].data !== 'undefined') {
   if (data.message.message[0].data.startsWith('!AL') && data.message.message[0].data.endsWith('grapple distance')){
       apexdata = (data.message.message[0].data);
       let alName = apexdata.split(' ');
@@ -331,7 +337,7 @@ console.log('The player they searched for was missing a stat value');
   console.log('The player they searched for does not exist.')
 }
 });
-  }
+  }}
 });
 
 

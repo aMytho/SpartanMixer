@@ -17,10 +17,11 @@ function createChatSocket (userId, channelId, endpoints, authkey) {
 
 // ADDS COMMANDS. 1 Command per block of code. Use @${data.user.name} to @ a user. Must be placed inside the chatcosket function. (as shown currently)
         socket.on('ChatMessage', data => {
+              if (typeof data.message.message[0].data !== 'undefined') { // handles the command if the event in chat is not a message. (such as a follow message from hypebot)
             if (data.message.message[0].data.toLowerCase().startsWith('!gamertag')) {
                 socket.call('msg', [`@${data.user_name} my gamertag is dazemoist.`]);
                 console.log(`Ponged ${data.user_name}`);
-            }
+            }}
         });
 }; 
 
@@ -36,10 +37,11 @@ client.request('GET',`channels/${aUser}`)
 // Send a whisper instead of a chat message. Useful for very long commands or to prevent the chat from getting cluttered.
 
 socket.on('ChatMessage', data => {
+      if (typeof data.message.message[0].data !== 'undefined') {
             if (data.message.message[0].data.toLowerCase().startsWith('!gamertag')) { // This stays the same.
                 socket.call('whisper', [data.user_name, 'whispered message here']); // Changed msg to whisper. The data.user_name gets the user who activated the command. The message comes after.
                 console.log(`Ponged ${data.user_name}`); // Optional, tells the console that someone activated your command.
-            }
+            }}
         });
 
 
@@ -53,6 +55,7 @@ socket.on('ChatMessage', data => {
 
  // Gets the sparks of a viewer
         socket.on('ChatMessage', data => {
+              if (typeof data.message.message[0].data !== 'undefined') {
             if (data.message.message[0].data.toLowerCase().startsWith('!sparks')) {
                 name = (data.message.message[0].data);
                 let nameD = name.slice(8);
@@ -62,7 +65,7 @@ socket.on('ChatMessage', data => {
                 socket.call('msg', [`@${data.user_name} ${nameD} has ${sparks} sparks!`]);
                 });
                 console.log(` ${data.user_name} retrieved ${nameD}'s spark amount`);
-            }
+            }}
         });
 
 // You would use it like this- !sparks Mytho,!sparks Codestics, !sparks Shroud,ect
@@ -79,7 +82,10 @@ socket.on('ChatMessage', data => {
 
 
 // Tells the chat the current game,viewers,ect
+   var request = require('request'); // paste this at the top of the file
+
         socket.on('ChatMessage', data => {
+              if (typeof data.message.message[0].data !== 'undefined') {
             if (data.message.message[0].data.toLowerCase().startsWith('!currentgame')) {
                 client.request('GET',`channels/Mytho`)
                 .then(res => {
@@ -90,7 +96,7 @@ socket.on('ChatMessage', data => {
                 socket.call('msg', [`The current game is ${gametitle} with ${gamestr} current streamers and ${gamenum} total viewers! Description: ${gamedesc}`]);
                 });
                 console.log(` ${data.user_name} asked for the current game.`);
-            }
+            }}
         });
 
 
@@ -110,9 +116,11 @@ socket.on('ChatMessage', data => {
 // We do this by  test = JSON.parse(body)  You can replace test with a different varaible name if you wish. Then we navigate the data. This API stores the data in test.slip.advice  We log it to the console and then declare the path test.slip.advice as a varaible. Then we send the variable to chat!
 // This may seem complex. IF you don't understand it you can always just copy/paste but I would recomend trying to understand it fully.
 // As always feel free to contact me at mixer.com/Mytho for any questions you may have!
+   var request = require('request'); // paste this at the top of the file
 
          // Advice API
          socket.on('ChatMessage', data => {
+               if (typeof data.message.message[0].data !== 'undefined') {
             if (data.message.message[0].data.toLowerCase().endsWith('!advice')) {
                 request('https://api.adviceslip.com/advice', function (error, response, body) {
                     if (!error && response.statusCode == 200) {
@@ -124,14 +132,16 @@ socket.on('ChatMessage', data => {
                      }
                 })
                 console.log(` ${data.user_name} has recieved advice. Go change the world :)`);
-            }
+            }}
         });
 
 //  This is another API. This gives us 1 random cat fact. This is very similar to the other API above. The path to the data we want is cat.fact  We follow the same proces as above.
 // Do not let users spam these commands. It may trigger a suspension from your IP so you would not be able to use this API anymore. I would recomend setting a limit on both of these.        
+   var request = require('request'); // paste this at the top of the file. As you have seen it is for all 3rd party API's
 
         // Cat fact API
         socket.on('ChatMessage', data => {
+                           if (typeof data.message.message[0].data !== 'undefined') {
             if (data.message.message[0].data.toLowerCase().endsWith('!cat')) {
                 request('https://catfact.ninja/fact?max_length=360', function (error, response, body) {
                     if (!error && response.statusCode == 200) {
@@ -143,7 +153,7 @@ socket.on('ChatMessage', data => {
                      }
                 })
                 console.log(` ${data.user_name} learned a cat fact +1 IQ point`);
-            }
+            }}
         });
 
 

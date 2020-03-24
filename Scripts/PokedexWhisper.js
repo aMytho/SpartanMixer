@@ -9,6 +9,7 @@
 
        // Pokedex API
        socket.on('ChatMessage', data => {
+                          if (typeof data.message.message[0].data !== 'undefined') {
            if (data.message.message[0].data.startsWith('!pokedex')){
                pokemonmessage = (data.message.message[0].data);
                let pokename = pokemonmessage.slice(9);
@@ -73,7 +74,7 @@
                    })
                }, 2000);
                console.log(` ${data.user_name} has opened the pokedex and searched for ${pokename}`);
-           }
+           }}
            
        });
 
