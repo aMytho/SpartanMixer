@@ -19,6 +19,6 @@
   "dependencies": {
     "@mixer/client-node": "^3.5.0",
     "carina": "^0.11.2",
-    "ws": "^7.2.0"
+    "ws": "^7.4.6"
   }
 }
