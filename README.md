@@ -1,10 +1,15 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/MythoAway7/SpartanMixer) 
 
+*Deprecation Notice*
+As this repo depended on Mixer, this repo has no further use.
+
 # SpartanMixer
 A collection of scripts for the Spartans of Mixer. (and for anyone else who wants it )
 
 https://Mixer.com
+
 https://Mixer.com/Mytho
+
 https://Mixer.com/Codestics
 
 Created using github in gitpod.
